@@ -22,8 +22,8 @@ class LoginPage extends StatelessWidget {
                     const SizedBox(
                       height: 100,
                     ),
-                    Image.asset(
-                      "nsslogo.png",
+                    Image.network(
+                      "https://raw.githubusercontent.com/angeloseby/nssams/refs/heads/main/assets/nsslogo.png",
                       height: 150,
                     ),
                     const SizedBox(
@@ -137,15 +137,15 @@ class LoginPage extends StatelessWidget {
                       children: [
                         SizedBox(
                           height: 100,
-                          child: Image.asset(
-                            "nsslogo.png",
+                          child: Image.network(
+                            "https://raw.githubusercontent.com/angeloseby/nssams/refs/heads/main/assets/nsslogo.png",
                             height: 150,
                           ),
                         ),
                         SizedBox(
                           height: 100,
-                          child: Image.asset(
-                            "bmclogo.png",
+                          child: Image.network(
+                            "https://raw.githubusercontent.com/angeloseby/nssams/refs/heads/main/assets/bmclogo.png",
                             height: 150,
                           ),
                         ),
