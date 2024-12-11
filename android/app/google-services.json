@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "770664252607",
+    "project_id": "nssams-fc85d",
+    "storage_bucket": "nssams-fc85d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:770664252607:android:8db3643ffc2f4af3b0320a",
+        "android_client_info": {
+          "package_name": "in.nssams.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCda1IWQ6gCR9ixOIRdCCCjJv2-Hhoujt8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

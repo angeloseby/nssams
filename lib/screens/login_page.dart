@@ -1,13 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:nssams/providers/auth_provider.dart';
 import 'package:nssams/utils/custom_color_scheme.dart';
 import 'package:nssams/utils/screen_size.dart';
+import 'package:provider/provider.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
   @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final _formKey = GlobalKey<FormState>();
+  final _nssidController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
     return Scaffold(
       body: Row(
         children: [
@@ -15,6 +27,7 @@ class LoginPage extends StatelessWidget {
           Flexible(
             flex: 4,
             child: Form(
+              key: _formKey,
               child: Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 16,
@@ -75,6 +88,7 @@ class LoginPage extends StatelessWidget {
                         height: screenHeight(context) * 0.01,
                       ),
                       TextFormField(
+                        controller: _nssidController,
                         style: GoogleFonts.poppins(),
                         decoration: const InputDecoration(
                           fillColor: CustomColorScheme.mainColorAccent,
@@ -83,6 +97,8 @@ class LoginPage extends StatelessWidget {
                             borderRadius: BorderRadius.zero,
                           ),
                         ),
+                        validator: (value) =>
+                            value!.isEmpty ? 'Please enter NSS ID' : null,
                       ),
                       SizedBox(
                         height: screenHeight(context) * 0.04,
@@ -102,6 +118,7 @@ class LoginPage extends StatelessWidget {
                         height: 10,
                       ),
                       TextFormField(
+                        controller: _passwordController,
                         style: GoogleFonts.poppins(),
                         decoration: const InputDecoration(
                           fillColor: CustomColorScheme.mainColorAccent,
@@ -110,11 +127,25 @@ class LoginPage extends StatelessWidget {
                             borderRadius: BorderRadius.zero,
                           ),
                         ),
+                        validator: (value) {
+                          if (value!.length < 8) {
+                            return "Please check your password";
+                          }
+                        },
                       ),
                       SizedBox(
                         height: screenHeight(context) * 0.04,
                       ),
                       OutlinedButton(
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            authProvider.signIn(
+                              context,
+                              _nssidController.text.toUpperCase(),
+                              _passwordController.text.trim(),
+                            );
+                          }
+                        },
                         style: OutlinedButton.styleFrom(
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(
@@ -127,14 +158,17 @@ class LoginPage extends StatelessWidget {
                             60,
                           ),
                         ),
-                        onPressed: () {},
-                        child: Text(
-                          "Login",
-                          style: GoogleFonts.poppins(
-                            fontSize: 18,
-                            color: Colors.white,
-                          ),
-                        ),
+                        child: (authProvider.isLoading)
+                            ? const CircularProgressIndicator(
+                                color: CustomColorScheme.mainColorAccent,
+                              )
+                            : Text(
+                                "Login",
+                                style: GoogleFonts.poppins(
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                ),
+                              ),
                       ),
                       const SizedBox(
                         height: 50,
@@ -154,7 +188,6 @@ class LoginPage extends StatelessWidget {
               ),
             ),
           ),
-          //name banner container
         ],
       ),
     );
