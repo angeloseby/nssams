@@ -1,23 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nssams/providers/auth_provider.dart';
-import 'package:nssams/screens/home_screen.dart';
-import 'package:nssams/screens/register_screen.dart';
 import 'package:nssams/utils/custom_color_scheme.dart';
 import 'package:nssams/utils/screen_size.dart';
 import 'package:provider/provider.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterScreenState extends State<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
   final _nssidController = TextEditingController();
+  final _nameController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _positionController = TextEditingController(text: "Volunteer");
+  final _yearController = TextEditingController();
+  final _departmentController = TextEditingController();
+  final _bloodGroupController = TextEditingController();
+  final _nssJoinYearController = TextEditingController();
+  final _dobController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -111,6 +116,53 @@ class _LoginPageState extends State<LoginPage> {
                           if (value!.length < 8) {
                             return "Please check your password";
                           }
+                          return null;
+                        },
+                      ),
+                      SizedBox(
+                        height: screenHeight(context) * 0.04,
+                      ),
+                      TextFormField(
+                        controller: _positionController,
+                        style: GoogleFonts.poppins(),
+                        decoration: InputDecoration(
+                          labelText: "Position",
+                          enabled: false,
+                          labelStyle: GoogleFonts.poppins(),
+                          floatingLabelStyle: GoogleFonts.poppins(),
+                          fillColor: CustomColorScheme.mainColorAccent,
+                          filled: true,
+                          border: const UnderlineInputBorder(
+                            borderRadius: BorderRadius.zero,
+                          ),
+                        ),
+                        validator: (value) {
+                          return;
+                        },
+                      ),
+                      SizedBox(
+                        height: screenHeight(context) * 0.04,
+                      ),
+                      TextFormField(
+                        controller: _yearController,
+                        style: GoogleFonts.poppins(),
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          labelText: "Study Year",
+                          labelStyle: GoogleFonts.poppins(),
+                          floatingLabelStyle: GoogleFonts.poppins(),
+                          fillColor: CustomColorScheme.mainColorAccent,
+                          filled: true,
+                          border: const UnderlineInputBorder(
+                            borderRadius: BorderRadius.zero,
+                          ),
+                        ),
+                        validator: (value) {
+                          // if (value! > 0 && value <= 5) {}
+
+                          // if (enteredYear < 0 && enteredYear > 5) {
+                          //   return "Enter correct year";
+                          // }
                         },
                       ),
                       SizedBox(
@@ -150,7 +202,7 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                       ),
                       const SizedBox(
-                        height: 25,
+                        height: 50,
                       ),
                       Text(
                         "\"NOT ME BUT YOU\"",
@@ -159,27 +211,6 @@ class _LoginPageState extends State<LoginPage> {
                           color: CustomColorScheme.mainColor,
                           fontSize: screenWidth(context) * 0.05,
                           fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 25,
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pushAndRemoveUntil(
-                            MaterialPageRoute(builder: (context) {
-                              return const RegisterScreen();
-                            }),
-                            (Route<dynamic> route) => false,
-                          );
-                        },
-                        child: Text(
-                          "Register as a Volunteer",
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.poppins(
-                            color: Colors.black54,
-                            fontSize: screenWidth(context) * 0.03,
-                          ),
                         ),
                       ),
                     ],
